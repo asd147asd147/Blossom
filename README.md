@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # JuneBank
-=======
-# junebank
 
 A new Flutter project.
 
