@@ -6,11 +6,15 @@ class HomeInfo extends StatefulWidget {
     _HomeInfoState createState() => _HomeInfoState();
 }
 
-class _HomeInfoState extends State<HomeInfo> {
+class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin{
+    late TabController _tabController;
 
     @override
     void initState() {
-        //_tabController = TabController(lenght: 2, vsync: this);
+        _tabController = TabController(
+                length: 2,
+                vsync: this,  
+        );
         super.initState();
     }
 
@@ -24,32 +28,28 @@ class _HomeInfoState extends State<HomeInfo> {
     Widget build(BuildContext context) {
         return Center(
                 child: Card(
-                        color: BankTheme.brightColor,
-                        child: Column(
-                                children: [ 
-                                Container(
-                                        child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                    InkWell(
-                                                            child: Container(
-                                                                    padding: EdgeInsets.all(12.0),
-                                                                    child: Text('Info'),
-                                                            ),
-                                                    ),
-                                                    InkWell(
-                                                            child: Container(
-                                                                    padding: EdgeInsets.all(12.0),
-                                                                    child: Text('History'),
-                                                            ),
-                                                    ),
-                                                ]),
-                                        ),
-                                ListTile(
-                                        title: Text('Hello Bank'),
-                                ),
-                                ]),
+                        child: DefaultTabController(
+                                length: 4,
+                                child: Column(
+                                        children: [
+                                            Container(
+                                                    constraints: BoxConstraints.expand(height: 50),
+                                                    child: TabBar(
+                                                            indicatorColor: Theme.of(context).primaryColor,
+                                                            labelColor: Theme.of(context).primaryColorDark,
+                                                            tabs: [
+                                                                Tab(text: 'Daily'),
+                                                                Tab(text: 'Weekly'),
+                                                                Tab(text: 'Monthly'),
+                                                                Tab(text: 'Yearly'),
+                                                            ]),
+                                            ),
+                                            Container(
+                                                    height: 150,
+                                            ),
+                                        ],),
                         ),
-            );
+                ),
+        );
     }
 }

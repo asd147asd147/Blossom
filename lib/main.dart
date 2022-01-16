@@ -12,11 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'JuneBank',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: BankTheme.mainColor,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: PinkTheme.theme,
       home: HomePage(),
     );
   }
