@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './homeInfo.dart';
 import './Summary.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +12,7 @@ class HomePage extends StatelessWidget {
                 ),
                 body: Column(
                         children: <Widget>[
+                            HomeInfo(),
                             ElevatedButton(
                                     child: Text("Go to second page"),
                                     onPressed: () {
