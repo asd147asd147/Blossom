@@ -11,6 +11,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
     Widget build(BuildContext context) {
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
+                elevation: 5,
                 child: Container(
                         height: 150,
                         ),

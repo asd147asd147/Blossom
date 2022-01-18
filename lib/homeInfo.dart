@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import './theme.dart';
 
 class HomeInfo extends StatefulWidget {
@@ -28,6 +29,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
     Widget build(BuildContext context) {
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15),
+                elevation: 5,
                 child: DefaultTabController(
                         length: 4,
                         child: Column(
@@ -51,9 +53,22 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                             height: 150,
                                             child: TabBarView(
                                                     children: [
-                                                        Container(
-                                                                child: Text('Daily Body'),
-                                                        ),
+                                                        Row( children: [
+                                                            FAProgressBar(
+                                                                    direction: Axis.vertical,
+                                                                    verticalDirection: VerticalDirection.up,
+                                                                    size: 10,
+                                                                    currentValue: 80,
+                                                                    backgroundColor: Theme.of(context).primaryColor,
+                                                                    progressColor: Theme.of(context).hoverColor,
+                                                            ),
+                                                            FAProgressBar(
+                                                                    direction: Axis.vertical,
+                                                                    verticalDirection: VerticalDirection.up,
+                                                                    size: 10,
+                                                                    currentValue: 80,
+                                                            ),
+                                                        ],),
                                                         Container(
                                                                 child: Text('Weekly Body'),
                                                         ),
