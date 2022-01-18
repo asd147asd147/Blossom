@@ -56,6 +56,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_animation_progress_bar",
+      "rootUri": "file:///Users/choiwonjun/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_animation_progress_bar-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/choiwonjun/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
@@ -152,7 +158,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-01-16T13:17:34.738832Z",
+  "generated": "2022-01-17T13:22:05.207999Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }
