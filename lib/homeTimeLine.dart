@@ -16,7 +16,8 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                 child: Container(
                         child: Timeline.tileBuilder(
                                 builder: TimelineTileBuilder.fromStyle(
-                                        contentsAlign: ContentsAlign.alternating,
+                                        alignment: TimelineAlign.left,
+                                        contentsAlign: ContentsAlign.reverse,
                                         contentsBuilder: (context, index) => Padding(
                                                 padding: const EdgeInsets.all(24.0),
                                                 child: Text('Timeline Event $index'),
@@ -24,7 +25,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                         itemCount: 10,
                                 ),
                         ),
-                        height: 1000,
+                        height: 300,
                 ),
         );
     }
