@@ -10,35 +10,45 @@ class HomeTimeLine extends StatefulWidget {
 class _HomeTimeLineState extends State<HomeTimeLine> {
     @override
     Widget build(BuildContext context) {
+        List<String> _time = ['09:00', '13:00', '17:50', '19:50', '21:50'];
+        List<String> _subject = ['Brunch', 'Lunch', 'Shopping', 'Dinner', 'Stock'];
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
                 elevation: 5,
                 child: Container(
                         child: Timeline.tileBuilder(
+                                shrinkWrap: true,
                                 theme: TimelineThemeData(
-                                        //nodePosition: 0,
+                                        nodePosition: 0.2,
                                         indicatorTheme: IndicatorThemeData(
-                                                size: 10.0,
+                                                color: Theme.of(context).hoverColor,
+                                                size: 20.0,
                                         ),
                                         connectorTheme: ConnectorThemeData(
+                                                color: Theme.of(context).hoverColor,
                                                 thickness: 2.5,
                                         ),
                                 ),
                                 builder: TimelineTileBuilder.fromStyle(
                                         contentsBuilder: (context, index) => Padding(
                                                 padding: const EdgeInsets.all(15.0),
-                                                child: Text('Timeline Event $index'),
+                                                child: Text(
+                                                        _subject[index],
+                                                        style: TextStyle(color: Theme.of(context).hoverColor),
+                                                ),
                                         ),
-                                        itemCount: 10,
+                                        itemCount: _time.length,
                                         oppositeContentsBuilder: (context, index) {
                                             return Padding(
-                                                    padding: const EdgeInsets.only(left: 15.0),
-                                                    child: Text('L $index'),
+                                                    padding: const EdgeInsets.only(right: 15.0),
+                                                    child: Text(
+                                                            _time[index],
+                                                            style: TextStyle(color: Theme.of(context).hoverColor),
+                                                    ),
                                             );
                                         },
                                 ),
                                 ),
-                        height: 300,
                 ),
         );
     }
