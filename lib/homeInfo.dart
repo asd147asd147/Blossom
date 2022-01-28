@@ -69,7 +69,6 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
 
     @override
     Widget build(BuildContext context) {
-        print(Theme.of(context).primaryColor);
         return Card(
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 elevation: 5,
