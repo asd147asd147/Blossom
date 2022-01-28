@@ -17,21 +17,7 @@ class PinkTheme {
     );
 }
 
-class CustomTheme extends InheritedWidget {
-
-    final CustomThemeData? customTheme;
-
-    CustomTheme({@required CustomThemeData this.customTheme});
-
-    static CustomThemeData of(BuildContext context) {
-        return context
-                .dependOnInheritedWidgetOfExactType<CustomTheme>().customTheme;
-    }
+abstract class DefaultTheme {
     
-    @override
-    bool updateShouldNotify(CustomTheme oldWidget) => customTheme != oldWidget.customTheme;
 }
 
-class CustomThemeData {
-    final Color mainColor = Colors.red;
-}
