@@ -3,18 +3,21 @@ import './homePage.dart';
 import './theme.dart';
 
 void main() {
-  runApp(MyApp());
+    runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'JuneBank',
-      theme: PinkTheme.theme,
-      home: HomePage(),
-    );
-  }
+    @override
+    Widget build(BuildContext context) {
+        return CustomTheme(
+                theme: TestPinkTheme(),
+                child: MaterialApp(
+                        title: 'JuneBank',
+                        theme: PinkTheme.theme,
+                        home: HomePage(),
+                ),
+        );
+    }
 }
 
