@@ -30,6 +30,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
     List<Widget> expenseBar() {
         List<String> week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         List<double> expense = [10000,20000,30000,40000,50000,60000,70000];
+        
         return List<Widget>.generate(7, (index){
             var f = NumberFormat('###,###,###,###');
             return Flexible(
@@ -40,7 +41,10 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                         padding: EdgeInsets.only(bottom: 10),
                                         child: Text(
                                                 f.format(expense[index].round()).toString(),
-                                                style: TextStyle(color: Theme.of(context).hoverColor, fontSize: 10),
+                                                style: TextStyle(
+                                                        color: CustomTheme.of(context).theme.homeInfoBarAbove,
+                                                        fontSize: 10
+                                                ),
                                         ),
                                 ),
                                 Flexible(
@@ -50,15 +54,15 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                                 verticalDirection: VerticalDirection.up,
                                                 size: 5,
                                                 currentValue: (expense[index]/expense.reduce(max)*100).round(),
-                                                backgroundColor: Theme.of(context).primaryColor,
-                                                progressColor: Theme.of(context).hoverColor,
+                                                backgroundColor: CustomTheme.of(context).theme.homeInfoBarBackground,
+                                                progressColor: CustomTheme.of(context).theme.homeInfoBarProgress, 
                                         ),
                                 ),
                                 Padding(
                                         padding: EdgeInsets.only(top: 10),
                                         child: Text(
                                                 week[index],
-                                                style: TextStyle(color: Theme.of(context).primaryColorDark),
+                                                style: TextStyle(color: CustomTheme.of(context).theme.homeInfoBarUnder),
                                         ),
                                 ),
                             ],
@@ -81,8 +85,8 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                             constraints: BoxConstraints.expand(height: 50),
                                             child: TabBar(
-                                                    indicatorColor: Theme.of(context).primaryColor,
-                                                    labelColor: Theme.of(context).primaryColorDark,
+                                                    labelColor: CustomTheme.of(context).theme.homeInfoLabel,
+                                                    indicatorColor: CustomTheme.of(context).theme.homeInfoIndicator,
                                                     indicatorWeight: 4.0,
                                                     indicatorSize: TabBarIndicatorSize.label,
                                                     tabs: [
