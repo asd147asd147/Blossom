@@ -1,47 +1,42 @@
 import 'package:flutter/material.dart';
 
-class PinkTheme {
-    static const Color mainColor = Color(0xffffb7c5);
-    static Color lightColor = Color(0xffffc4d2);
-    static Color darkColor = Color(0xfff1aab8);
-    static Color brightColor = Color(0xfffff3f5);
-    static Color brightnessColor = Color(0xffff578b);
-
-    static ThemeData theme = ThemeData(
-            primaryColor: mainColor,
-            primaryColorDark: darkColor,
-            primaryColorLight: lightColor,
-            hoverColor: brightnessColor,
-            scaffoldBackgroundColor: PinkTheme.mainColor,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-    );
-}
-
 abstract class DefaultTheme {
+    Color get scaffoldBackgroundColor;
+
     Color get homeInfoBarBackground;
     Color get homeInfoBarProgress;
+
     Color get homeInfoBarAbove;
     Color get homeInfoBarUnder;
     Color get homeInfoLabel;
     Color get homeInfoIndicator;
 
+    Color get homeTimelineIndicator;
+    Color get homeTimelineText;
+
     ThemeData get themeData;
 
 }
 
-class TestPinkTheme extends DefaultTheme {
+class PinkTheme extends DefaultTheme {
     static Color mainColor = Color(0xffffb7c5);
-    static Color brightnessColor = Color(0xffff578b);
-    static Color darkColor = Color(0xfff1aab8);
+    static Color highLightColor = Color(0xffff578b);
+    static Color baseColor = Color(0xfff1aab8);
+    static Color defaultColor = Color(0xffff79a2);
 
     @override
-    final Color homeInfoLabel = darkColor;
+    final Color scaffoldBackgroundColor = mainColor;
+
+    final Color homeInfoLabel = baseColor;
     final Color homeInfoIndicator = mainColor;
 
     final Color homeInfoBarBackground = mainColor;
-    final Color homeInfoBarProgress = brightnessColor;
-    final Color homeInfoBarAbove = brightnessColor;
-    final Color homeInfoBarUnder = darkColor;
+    final Color homeInfoBarProgress = highLightColor;
+    final Color homeInfoBarAbove = highLightColor;
+    final Color homeInfoBarUnder = baseColor;
+
+    final Color homeTimelineIndicator = defaultColor;
+    final Color homeTimelineText = defaultColor;
 
     final ThemeData themeData = ThemeData(
             scaffoldBackgroundColor: mainColor,

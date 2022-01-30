@@ -7,16 +7,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
     @override
     Widget build(BuildContext context) {
         return CustomTheme(
-                theme: TestPinkTheme(),
-                child: MaterialApp(
-                        title: 'JuneBank',
-                        theme: PinkTheme.theme,
-                        home: HomePage(),
-                ),
+                theme: PinkTheme(),
+                child: HomePage(),
         );
     }
 }
