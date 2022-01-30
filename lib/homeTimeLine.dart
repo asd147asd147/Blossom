@@ -21,11 +21,11 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                 theme: TimelineThemeData(
                                         nodePosition: 0.2,
                                         indicatorTheme: IndicatorThemeData(
-                                                color: Theme.of(context).hoverColor,
+                                                color: CustomTheme.of(context).theme.homeTimelineIndicator,
                                                 size: 20.0,
                                         ),
                                         connectorTheme: ConnectorThemeData(
-                                                color: Theme.of(context).hoverColor,
+                                                color: CustomTheme.of(context).theme.homeTimelineIndicator,
                                                 thickness: 2.5,
                                         ),
                                 ),
@@ -34,7 +34,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                 padding: const EdgeInsets.all(15.0),
                                                 child: Text(
                                                         _subject[index],
-                                                        style: TextStyle(color: Theme.of(context).hoverColor),
+                                                        style: TextStyle(color: CustomTheme.of(context).theme.homeTimelineText),
                                                 ),
                                         ),
                                         itemCount: _time.length,
@@ -43,7 +43,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                     padding: const EdgeInsets.only(right: 15.0),
                                                     child: Text(
                                                             _time[index],
-                                                            style: TextStyle(color: Theme.of(context).hoverColor),
+                                                            style: TextStyle(color: CustomTheme.of(context).theme.homeTimelineText),
                                                     ),
                                             );
                                         },
