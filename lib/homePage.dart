@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './homeInfo.dart';
 import './homeTimeLine.dart';
-import './Summary.dart';
 import './theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,14 +17,7 @@ class HomePage extends StatelessWidget {
                                 children: <Widget>[
                                     HomeInfo(),
                                     HomeTimeLine(),
-                                    ElevatedButton(
-                                            child: Text("Go to second page"),
-                                            onPressed: () {
-                                                Navigator.push(
-                                                        context, MaterialPageRoute(builder: (_) => Summary()));
-                                            },
-                                    ),
-                                ],
+                               ],
                         ),
                 ),
         );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timelines/timelines.dart';
+import './Summary.dart';
 import './theme.dart';
 
 class HomeTimeLine extends StatefulWidget {
@@ -13,6 +14,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
         List<String> _subject = ['Brunch', 'Lunch', 'Shopping', 'Dinner', 'Stock'];
 
         return Container(
+                margin: EdgeInsets.symmetric(horizontal: 30),
                 child: Timeline.tileBuilder(
                         shrinkWrap: true,
                         theme: TimelineThemeData(
@@ -63,10 +65,13 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                                Icon(
-                                                        Icons.navigate_before_rounded,
-                                                        color: CustomTheme.of(context).theme.homeTimelineTitle,
-                                                        size: 17,
+                                                Padding(
+                                                        padding: EdgeInsets.only(right: 35),
+                                                        child: Icon(
+                                                                Icons.navigate_before_rounded,
+                                                                color: CustomTheme.of(context).theme.homeTimelineTitle,
+                                                                size: 17,
+                                                        ),
                                                 ),
                                                 Text(
                                                         '2022-01-13',
@@ -75,12 +80,73 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                                 fontSize: 17,
                                                         ),
                                                 ),
-                                                Icon(
-                                                        Icons.navigate_next_rounded,
-                                                        color: CustomTheme.of(context).theme.homeTimelineTitle,
-                                                        size: 17,
+                                                Padding(
+                                                        padding: EdgeInsets.only(left: 35),
+                                                        child: Icon(
+                                                                Icons.navigate_next_rounded,
+                                                                color: CustomTheme.of(context).theme.homeTimelineTitle,
+                                                                size: 17,
+                                                        ),
                                                 ),
-                                            ],
+                                                ],
+                                    ),
+                            ),
+                            Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        Container(
+                                                padding: EdgeInsets.only(bottom: 15, right: 30),
+                                                child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                            Text(
+                                                                    'Income',
+                                                                    style: TextStyle(
+                                                                            color: CustomTheme.of(context).theme.homeTimelineInfoTitle,
+                                                                            fontSize: 13,
+                                                                            fontWeight: FontWeight.w500,
+                                                                    ),
+                                                            ),
+                                                            Text(
+                                                                    '150,000',
+                                                                    style: TextStyle(
+                                                                            color: CustomTheme.of(context).theme.homeTimelineInfoText,
+                                                                            fontSize: 13,
+                                                                    ),
+                                                            ),
+                                                        ],
+                                                ),
+                                        ),
+                                        Container(
+                                                padding: EdgeInsets.only(bottom: 15, left: 30),
+                                                child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                            Text(
+                                                                    'Expense',
+                                                                    style: TextStyle(
+                                                                            color: CustomTheme.of(context).theme.homeTimelineInfoTitle,
+                                                                            fontSize: 13,
+                                                                            fontWeight: FontWeight.w500,
+                                                                    ),
+                                                            ),
+                                                            Text(
+                                                                    '80,000',
+                                                                    style: TextStyle(
+                                                                            color: CustomTheme.of(context).theme.homeTimelineInfoText,
+                                                                            fontSize: 13,
+                                                                    ),
+                                                            ),
+                                                        ],
+                                                ),
+                                        ),
+                                    ],
+                            ),
+                            Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 30),
+                                    height: 1.2,
+                                    decoration: BoxDecoration(
+                                            color: CustomTheme.of(context).theme.homeTimelineIndicator,
                                     ),
                             ),
                             Container(
@@ -93,6 +159,13 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                 timelineBuilder(),
                                             ],
                                     ),
+                            ),
+                            ElevatedButton(
+                                    child: Text("Go to second page"),
+                                    onPressed: () {
+                                        Navigator.push(
+                                                context, MaterialPageRoute(builder: (_) => Summary()));
+                                    },
                             ),
                         ],
                 ),
