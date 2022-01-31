@@ -11,6 +11,7 @@ abstract class DefaultTheme {
     Color get homeInfoLabel;
     Color get homeInfoIndicator;
 
+    Color get homeTimelineTitle;
     Color get homeTimelineIndicator;
     Color get homeTimelineText;
 
@@ -35,6 +36,7 @@ class PinkTheme extends DefaultTheme {
     final Color homeInfoBarAbove = highLightColor;
     final Color homeInfoBarUnder = baseColor;
 
+    final Color homeTimelineTitle = baseColor;
     final Color homeTimelineIndicator = defaultColor;
     final Color homeTimelineText = defaultColor;
 
