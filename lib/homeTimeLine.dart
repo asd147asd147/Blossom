@@ -11,17 +11,31 @@ class HomeTimeLine extends StatefulWidget {
 class _HomeTimeLineState extends State<HomeTimeLine> {
     Widget timelineBuilder(){
         List<String> _time = ['09:00', '13:00', '17:50', '19:50', '21:50'];
-        List<String> _subject = ['Brunch', 'Lunch', 'Shopping', 'Dinner', 'Stock'];
+        List<Map<String, dynamic>> _subject = [
+            {'subject': 'Brunch', 'time': '09:00', 'detail': ['Grilled ham, egg & chips', 'Espresso']},
+            {'subject': 'Lunch', 'time': '13:00', 'detail': ['Cheeseburger']},
+            {'subject': 'Shopping', 'time': '17:50', 'detail': ['Muffler', 'Gloves']},
+            {'subject': 'Dinner', 'time': '19:50','detail': ['Beefsteak', 'Houes White Wine']},
+            {'subject': 'Stock', 'time': '21:50', 'detail': ['Profit']},
+        ];
+
+        List<Map<dynamic, dynamic>> _timeLineInfo = [];
+        _subject.forEach((value){
+            _timeLineInfo.add({'content': value['subject'], 'oppContent': value['time'], 'type': 0});
+            for(int i = 0; i < value['detail'].length; i++){
+                _timeLineInfo.add({'content': value['detail'][i], 'oppContent': '', 'type': 1});
+            }
+        });
 
         return Container(
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: Timeline.tileBuilder(
                         shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
                         theme: TimelineThemeData(
                                 nodePosition: 0.2,
                                 indicatorTheme: IndicatorThemeData(
                                         color: CustomTheme.of(context).theme.homeTimelineIndicator,
-                                        size: 20.0,
                                 ),
                                 connectorTheme: ConnectorThemeData(
                                         color: CustomTheme.of(context).theme.homeTimelineIndicator,
@@ -29,35 +43,71 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                 ),
                         ),
                         builder: TimelineTileBuilder.connected(
-                                contentsBuilder: (context, index) => Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Text(
-                                                _subject[index],
-                                                style: TextStyle(color: CustomTheme.of(context).theme.homeTimelineText),
-                                        ),
-                                ),
-                                itemCount: _time.length,
+                                connectionDirection: ConnectionDirection.before,
+                                itemCount: _timeLineInfo.length,
+                                contentsBuilder: (context, index) {
+                                    var _color = CustomTheme.of(context).theme.homeTimelineMainText;
+                                    var _fontSize = 15.0;
+                                    var _topPad = 17.0;
+                                    var _botPad = 8.0;
+                                    if(_timeLineInfo[index]['type'] == 1){
+                                        _color = CustomTheme.of(context).theme.homeTimelineSubText;
+                                        _fontSize = 12.0;
+                                        _topPad = 8.0;
+                                    }
+                                    return Padding(
+                                            padding: EdgeInsets.only(top: _topPad, bottom: _botPad, right: 15.0, left: 15.0),
+                                            child: Text(
+                                                    _timeLineInfo[index]['content'],
+                                                    style: TextStyle(
+                                                            color: _color,
+                                                            fontSize: _fontSize,
+                                                    ),
+                                            ),
+                                    );
+                                },
                                 oppositeContentsBuilder: (context, index) {
+                                    var _color = CustomTheme.of(context).theme.homeTimelineMainText;
+                                    if(_timeLineInfo[index]['type'] == 1){
+                                        _color = CustomTheme.of(context).theme.homeTimelineSubText;
+                                    }
                                     return Padding(
                                             padding: const EdgeInsets.only(right: 15.0),
                                             child: Text(
-                                                    _time[index],
-                                                    style: TextStyle(color: CustomTheme.of(context).theme.homeTimelineText),
+                                                    _timeLineInfo[index]['oppContent'],
+                                                    style: TextStyle(color: _color),
                                             ),
                                     );
                                 },
                                 indicatorBuilder: (_, index) {
-                                    return Stack(
-                                            children: [
-                                                DotIndicator(
-                                                        size: 5.0*index,
-                                                ),
-                                            ],
+                                    var _size = 20.0;
+                                    if(_timeLineInfo[index]['type'] == 1){
+                                        _size = 10.0;
+                                    }
+                                    return DotIndicator(
+                                            size: _size,
+                                    );
+                                },
+                                connectorBuilder: (_, index, type) {
+                                    return Container(
+                                            child: SolidLineConnector(
+                                                    space: 30,
+                                            ),
+                                    );
+                                },
+                                firstConnectorBuilder: (_) {
+                                    return Container(
+                                            child: SolidLineConnector(),
+                                    );
+                                },
+                                lastConnectorBuilder: (_) {
+                                    return Container(
+                                            child: SolidLineConnector(),
                                     );
                                 },
                         ),
-                        ),
-                        );
+                    ),
+        );
     }
 
     @override
@@ -159,7 +209,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     ),
                             ),
                             Container(
-                                    height: 300,
+                                    height: 380,
                                     child: PageView(
                                             scrollDirection: Axis.horizontal,
                                             children: <Widget>[
