@@ -28,7 +28,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                         thickness: 2.5,
                                 ),
                         ),
-                        builder: TimelineTileBuilder.fromStyle(
+                        builder: TimelineTileBuilder.connected(
                                 contentsBuilder: (context, index) => Padding(
                                         padding: const EdgeInsets.all(15.0),
                                         child: Text(
@@ -44,6 +44,15 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                     _time[index],
                                                     style: TextStyle(color: CustomTheme.of(context).theme.homeTimelineText),
                                             ),
+                                    );
+                                },
+                                indicatorBuilder: (_, index) {
+                                    return Stack(
+                                            children: [
+                                                DotIndicator(
+                                                        size: 5.0*index,
+                                                ),
+                                            ],
                                     );
                                 },
                         ),
