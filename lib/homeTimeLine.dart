@@ -48,21 +48,31 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                 contentsBuilder: (context, index) {
                                     var _color = CustomTheme.of(context).theme.homeTimelineMainText;
                                     var _fontSize = 15.0;
-                                    var _topPad = 17.0;
+                                    var _topPad = 0.0;
                                     var _botPad = 8.0;
                                     if(_timeLineInfo[index]['type'] == 1){
                                         _color = CustomTheme.of(context).theme.homeTimelineSubText;
-                                        _fontSize = 12.0;
-                                        _topPad = 8.0;
+                                        _fontSize = 13.0;
+                                        _topPad = -4.0;
                                     }
-                                    return Padding(
-                                            padding: EdgeInsets.only(top: _topPad, bottom: _botPad, right: 15.0, left: 15.0),
-                                            child: Text(
+                                    return ListTile(
+                                            contentPadding: EdgeInsets.only(left: 10.0, right: 5.0),
+                                            visualDensity: VisualDensity(vertical: _topPad),
+                                            onTap: () {},
+                                            title: Text(
                                                     _timeLineInfo[index]['content'],
                                                     style: TextStyle(
                                                             color: _color,
                                                             fontSize: _fontSize,
                                                     ),
+                                            ),
+                                            trailing: Text(
+                                                    '20,000',
+                                                    style: TextStyle(
+                                                            color: _color,
+                                                            fontSize: _fontSize,
+                                                    ),
+                                                    textAlign: TextAlign.right,
                                             ),
                                     );
                                 },
@@ -96,11 +106,6 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     );
                                 },
                                 firstConnectorBuilder: (_) {
-                                    return Container(
-                                            child: SolidLineConnector(),
-                                    );
-                                },
-                                lastConnectorBuilder: (_) {
                                     return Container(
                                             child: SolidLineConnector(),
                                     );
@@ -209,7 +214,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     ),
                             ),
                             Container(
-                                    height: 380,
+                                    height: 420,
                                     child: PageView(
                                             scrollDirection: Axis.horizontal,
                                             children: <Widget>[
@@ -219,13 +224,13 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                             ],
                                     ),
                             ),
-                            ElevatedButton(
+                            /*ElevatedButton(
                                     child: Text("Go to second page"),
                                     onPressed: () {
                                         Navigator.push(
                                                 context, MaterialPageRoute(builder: (_) => Summary()));
                                     },
-                            ),
+                            ),*/
                         ],
                 ),
         );
