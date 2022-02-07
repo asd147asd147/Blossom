@@ -86,6 +86,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                             constraints: BoxConstraints.expand(height: 50),
                                             child: TabBar(
                                                     labelColor: CustomTheme.of(context).theme.homeInfoLabel,
+                                                    labelStyle: TextStyle(fontSize: 13.0, ),
                                                     indicatorColor: CustomTheme.of(context).theme.homeInfoIndicator,
                                                     indicatorWeight: 4.0,
                                                     indicatorSize: TabBarIndicatorSize.label,

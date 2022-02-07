@@ -58,7 +58,6 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     return ListTile(
                                             contentPadding: EdgeInsets.only(left: 10.0, right: 5.0),
                                             visualDensity: VisualDensity(vertical: _topPad),
-                                            onTap: () {},
                                             title: Text(
                                                     _timeLineInfo[index]['content'],
                                                     style: TextStyle(
@@ -85,17 +84,27 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                             padding: const EdgeInsets.only(right: 15.0),
                                             child: Text(
                                                     _timeLineInfo[index]['oppContent'],
-                                                    style: TextStyle(color: _color),
+                                                    style: TextStyle(
+                                                            color: _color,
+                                                            fontSize: 13.0,
+                                                    ),
                                             ),
                                     );
                                 },
                                 indicatorBuilder: (_, index) {
                                     var _size = 20.0;
+                                    var _childSize = 15.0;
                                     if(_timeLineInfo[index]['type'] == 1){
                                         _size = 10.0;
+                                        _childSize = 0.0;
                                     }
                                     return DotIndicator(
                                             size: _size,
+                                            child: Icon(
+                                                    Icons.check,
+                                                    color: Colors.white,
+                                                    size: _childSize,
+                                            ),
                                     );
                                 },
                                 connectorBuilder: (_, index, type) {
@@ -117,6 +126,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
 
     @override
     Widget build(BuildContext context) {
+        final Size size = MediaQuery.of(context).size;
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
                 elevation: 5,
@@ -214,8 +224,9 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     ),
                             ),
                             Container(
-                                    height: 420,
+                                    height: size.height * 0.45,
                                     child: PageView(
+                                            reverse: true,
                                             scrollDirection: Axis.horizontal,
                                             children: <Widget>[
                                                 timelineBuilder(),
@@ -224,13 +235,6 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                             ],
                                     ),
                             ),
-                            /*ElevatedButton(
-                                    child: Text("Go to second page"),
-                                    onPressed: () {
-                                        Navigator.push(
-                                                context, MaterialPageRoute(builder: (_) => Summary()));
-                                    },
-                            ),*/
                         ],
                 ),
         );
