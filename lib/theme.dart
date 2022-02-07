@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 abstract class DefaultTheme {
     Color get scaffoldBackgroundColor;
+    
+    Color get appBarIconColor;
 
     Color get homeInfoBarBackground;
     Color get homeInfoBarProgress;
@@ -28,9 +30,12 @@ class PinkTheme extends DefaultTheme {
     static Color baseColor = Color(0xfff1aab8);
     static Color defaultColor = Color(0xffff79a2);
     static Color textColor = Color(0xffff9faf);
+    static Color brightColor = Color(0xfffff3f5);
 
     @override
     final Color scaffoldBackgroundColor = mainColor;
+
+    final Color appBarIconColor = brightColor;
 
     final Color homeInfoLabel = baseColor;
     final Color homeInfoIndicator = mainColor;
@@ -59,9 +64,12 @@ class PurpleTheme extends DefaultTheme {
     static Color baseColor = Color(0xffaeabf1);
     static Color defaultColor = Color(0xff8379ff);
     static Color textColor = Color(0xffad9fff);
+    static Color brightColor = Color(0xfffff3f5);
 
     @override
     final Color scaffoldBackgroundColor = mainColor;
+
+    final Color appBarIconColor = brightColor;
 
     final Color homeInfoLabel = baseColor;
     final Color homeInfoIndicator = mainColor;
