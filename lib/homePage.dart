@@ -3,6 +3,7 @@ import './homeInfo.dart';
 import './homeTimeLine.dart';
 import './theme.dart';
 import './Summary.dart';
+import './AddTab.dart';
 
 class HomePage extends StatelessWidget {
     @override
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                                             icon: Icon(Icons.add),
                                             color: CustomTheme.of(context).theme.appBarIconColor,
                                             onPressed: () {
-                                                Navigator.push(context, MaterialPageRoute(builder: (_) => Summary()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (_) => AddTab()));
                                             },
                                     ),
                             ),
