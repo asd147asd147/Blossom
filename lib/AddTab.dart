@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
+import './theme.dart';
 
 class AddTab extends StatefulWidget {
     @override
@@ -7,8 +10,10 @@ class AddTab extends StatefulWidget {
 }
 
 class _AddTabState extends State<AddTab> {
-    DateTime _selectedValue = DateTime.now();
-    void _showPicker(BuildContext context) {
+    DateTime _selectDay = DateTime.now();
+    DateTime _selectTime = DateTime.now();
+    var isSelected = [true, false];
+    void _showDatePicker(BuildContext context) {
         showCupertinoModalPopup(
                 context: context,
                 builder: (_) => Container(
@@ -17,12 +22,74 @@ class _AddTabState extends State<AddTab> {
                                 mode: CupertinoDatePickerMode.date,
                                 onDateTimeChanged: (value) {
                                     setState((){
-                                        _selectedValue = value;
+                                        _selectDay = value;
                                     });
                                 },
-                                initialDateTime: _selectedValue,
+                                initialDateTime: _selectDay,
                         ),
                 ));
+    }
+
+    void _showTimePicker(BuildContext context) {
+        showCupertinoModalPopup(
+                context: context,
+                builder: (_) => Container(
+                        height: 216,
+                        child: CupertinoDatePicker(
+                                mode: CupertinoDatePickerMode.time,
+                                onDateTimeChanged: (value) {
+                                    setState((){
+                                        _selectTime = value;
+                                    });
+                                },
+                                initialDateTime: _selectTime,
+                        ),
+                ));
+    }
+
+    Widget toggleButton() {
+        return ToggleButtons(
+                borderColor: CustomTheme.of(context).theme.addTabToggleBorder,
+                fillColor: CustomTheme.of(context).theme.addTabToggleText,
+                borderWidth: 1,
+                selectedBorderColor: CustomTheme.of(context).theme.addTabToggleBorder,
+                selectedColor: CustomTheme.of(context).theme.addTabToggleBack,
+                color: CustomTheme.of(context).theme.addTabToggleBack,
+                borderRadius: BorderRadius.circular(10),
+                children: <Widget>[
+                    Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Text(
+                                    'Income',
+                                    style: TextStyle(fontSize: 14),
+                            ),
+                    ),
+                    Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Text(
+                                    'Expense',
+                                    style: TextStyle(fontSize: 14),
+                            ),
+                    ),
+                ],
+                onPressed: (int index) {
+                    setState(() {
+                        for (int i = 0; i < isSelected.length; i++) {
+                            isSelected[i] = i == index;
+                        }
+                    });
+                },
+                isSelected: isSelected,
+                );
+    }
+
+    Widget moneyField() {
+        return TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                ], 
+        );
     }
 
     Widget baseCard() {
@@ -38,13 +105,58 @@ class _AddTabState extends State<AddTab> {
                                 children: [
                                     _DatePickerItem(
                                             children: [
-                                                const Text('Date'),
+                                                Text(
+                                                        'Date',
+                                                        style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                                        ),
+                                                ),
                                                 CupertinoButton(
-                                                        child: Text('$_selectedValue'),
-                                                        onPressed: () => _showPicker(context),
+                                                        child: Text(
+                                                                DateFormat.yMMMd().format(_selectDay),
+                                                                style: TextStyle(
+                                                                        fontSize: 18.0,
+                                                                        color: CustomTheme.of(context).theme.addTabText,
+                                                                ),
+                                                        ),
+                                                        onPressed: () => _showDatePicker(context),
                                                 ),
                                             ],),
-                                ]),
+                                    _DatePickerItem(
+                                            children: [
+                                                Text(
+                                                        'Time',
+                                                        style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                                        ),
+                                                ),
+                                                CupertinoButton(
+                                                        child: Text(
+                                                                DateFormat.jm().format(_selectTime),
+                                                                style: TextStyle(
+                                                                        fontSize: 18.0,
+                                                                        color: CustomTheme.of(context).theme.addTabText,
+                                                                ),
+                                                        ),
+                                                        onPressed: () => _showTimePicker(context),
+                                                ),
+                                            ],),
+                                    _DatePickerItem(
+                                            children: [
+                                                Container(
+                                                        margin: EdgeInsets.symmetric(vertical: 10,),
+                                                        height: 30,
+                                                        child: toggleButton(),
+                                                ),
+                                                Container(
+                                                        width: 100,
+                                                        child: moneyField(),
+                                                ),
+                                            ],
+                                            ),
+                                    ]),
                 ),
         );
     }
@@ -69,14 +181,14 @@ class _DatePickerItem extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return DecoratedBox(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                         border: Border(
                                 top: BorderSide(
-                                        color: CupertinoColors.inactiveGray,
+                                        color: CustomTheme.of(context).theme.addTabText,
                                         width: 0.0,
                                 ),
                                 bottom: BorderSide(
-                                        color: CupertinoColors.inactiveGray,
+                                        color: CustomTheme.of(context).theme.addTabDivider,
                                         width: 0.0,
                                 ),
                         ),
