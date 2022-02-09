@@ -20,6 +20,13 @@ abstract class DefaultTheme {
     Color get homeTimelineMainText;
     Color get homeTimelineSubText;
 
+    Color get addTabTitle;
+    Color get addTabText;
+    Color get addTabDivider;
+    Color get addTabToggleText;
+    Color get addTabToggleBack;
+    Color get addTabToggleBorder;
+
     ThemeData get themeData;
 
 }
@@ -52,13 +59,20 @@ class PinkTheme extends DefaultTheme {
     final Color homeTimelineMainText = defaultColor;
     final Color homeTimelineSubText = textColor;
 
+    final Color addTabTitle = highLightColor;
+    final Color addTabText = textColor;
+    final Color addTabDivider = baseColor;
+    final Color addTabToggleText = brightColor;
+    final Color addTabToggleBack = highLightColor;
+    final Color addTabToggleBorder = highLightColor;
+
     final ThemeData themeData = ThemeData(
             scaffoldBackgroundColor: mainColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
     );
 }
 
-class PurpleTheme extends DefaultTheme {
+class PurpleTheme {
     static Color mainColor = Color(0xffdeb7ff);
     static Color highLightColor = Color(0xff83578b);
     static Color baseColor = Color(0xffaeabf1);
