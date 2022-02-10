@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import './theme.dart';
 
 class AddTab extends StatefulWidget {
@@ -15,6 +16,7 @@ class _AddTabState extends State<AddTab> {
     DateTime _selectTime = DateTime.now();
     var isSelected = [true, false];
     var money = 0;
+    IconData? iconData;
 
     void _showDatePicker(BuildContext context) {
         showCupertinoModalPopup(
@@ -86,11 +88,39 @@ class _AddTabState extends State<AddTab> {
                 );
     }
 
+    Widget subjectField() {
+        return TextField(
+                decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(
+                                fontSize: 18.0,
+                                color: CustomTheme.of(context).theme.addTabText,
+                        ),
+                        hintText: 'Only English',
+                        contentPadding: EdgeInsets.only(right: 14),
+                ),
+                style: TextStyle(
+                        fontSize: 18.0,
+                        color: CustomTheme.of(context).theme.addTabText,
+                ),
+                textAlign: TextAlign.end,
+        );
+    }
+
     Widget moneyField() {
         return TextField(
-                decoration: InputDecoration.collapsed(
+                decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'cost',
+                        hintStyle: TextStyle(
+                                fontSize: 18.0,
+                                color: CustomTheme.of(context).theme.addTabText,
+                        ),
+                        hintText: 'KRW 0',
+                        contentPadding: EdgeInsets.only(right: 14),
+                ),
+                style: TextStyle(
+                        fontSize: 18.0,
+                        color: CustomTheme.of(context).theme.addTabText,
                 ),
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.end,
@@ -103,6 +133,10 @@ class _AddTabState extends State<AddTab> {
                     //FilteringTextInputFormatter.digitsOnly,
                 ], 
         );
+    }
+
+    IconData getIcon() {
+        return IconData(iconData?.codePoint ?? Icons.check.codePoint, fontFamily: 'MaterialIcons');
     }
 
     Widget baseCard() {
@@ -158,17 +192,54 @@ class _AddTabState extends State<AddTab> {
                                             ],),
                                     _DatePickerItem(
                                             children: [
+                                                Text(
+                                                        'Type',
+                                                        style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                                        ),
+                                                ),
                                                 Container(
                                                         margin: EdgeInsets.symmetric(vertical: 10,),
                                                         height: 30,
                                                         child: toggleButton(),
                                                 ),
+                                            ]),
+                                    _DatePickerItem(
+                                            children: [
+                                                Text(
+                                                        'Subject',
+                                                        style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                                        ),
+                                                ),
                                                 Container(
                                                         width: 150,
-                                                        child: moneyField(),
+                                                        child: subjectField(),
+                                                ),
+                                            ]),
+                                    _DatePickerItem(
+                                            children: [
+                                                Text(
+                                                        'Icon',
+                                                        style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                                        ),
+                                                ),
+                                                IconButton(
+                                                        icon: Icon(
+                                                                getIcon(),
+                                                                color: CustomTheme.of(context).theme.addTabText,
+                                                        ),
+                                                        onPressed: () async {
+                                                            iconData = await FlutterIconPicker.showIconPicker(context, iconPackModes: [IconPack.material]);
+                                                            setState(() {});
+                                                        }
                                                 ),
                                             ],
-                                            ),
+                                    ),
                                     ]),
                 ),
         );

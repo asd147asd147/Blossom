@@ -68,6 +68,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_iconpicker",
+      "rootUri": "file:///Users/choiwonjun/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_iconpicker-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.13"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/choiwonjun/Library/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
       "packageUri": "lib/",
@@ -76,6 +82,12 @@
     {
       "name": "flutter_test",
       "rootUri": "file:///Users/choiwonjun/Library/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///Users/choiwonjun/Library/flutter/.pub-cache/hosted/pub.dartlang.org/font_awesome_flutter-9.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -176,7 +188,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-02-10T14:49:00.466451Z",
+  "generated": "2022-02-10T15:16:51.145404Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }
