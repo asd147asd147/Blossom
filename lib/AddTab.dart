@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import './theme.dart';
 
 class AddTab extends StatefulWidget {
@@ -13,6 +14,8 @@ class _AddTabState extends State<AddTab> {
     DateTime _selectDay = DateTime.now();
     DateTime _selectTime = DateTime.now();
     var isSelected = [true, false];
+    var money = 0;
+
     void _showDatePicker(BuildContext context) {
         showCupertinoModalPopup(
                 context: context,
@@ -85,9 +88,19 @@ class _AddTabState extends State<AddTab> {
 
     Widget moneyField() {
         return TextField(
+                decoration: InputDecoration.collapsed(
+                        border: InputBorder.none,
+                        hintText: 'cost',
+                ),
                 keyboardType: TextInputType.number,
+                textAlign: TextAlign.end,
                 inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
+                    CurrencyTextInputFormatter(
+                            locale: 'ko',
+                            decimalDigits: 0,
+                            symbol: 'KRW ',
+                    ),
+                    //FilteringTextInputFormatter.digitsOnly,
                 ], 
         );
     }
@@ -151,7 +164,7 @@ class _AddTabState extends State<AddTab> {
                                                         child: toggleButton(),
                                                 ),
                                                 Container(
-                                                        width: 100,
+                                                        width: 150,
                                                         child: moneyField(),
                                                 ),
                                             ],
