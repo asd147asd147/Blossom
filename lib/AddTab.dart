@@ -107,19 +107,38 @@ class _AddTabState extends State<AddTab> {
         );
     }
 
+    Widget detailField() {
+        return TextField(
+                decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(
+                                fontSize: 14.0,
+                                color: CustomTheme.of(context).theme.addTabText,
+                        ),
+                        hintText: 'Only English',
+                        contentPadding: EdgeInsets.only(right: 14),
+                ),
+                style: TextStyle(
+                        fontSize: 14.0,
+                        color: CustomTheme.of(context).theme.addTabText,
+                ),
+                textAlign: TextAlign.end,
+        );
+    }
+
     Widget moneyField() {
         return TextField(
                 decoration: InputDecoration(
                         border: InputBorder.none,
                         hintStyle: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: 14.0,
                                 color: CustomTheme.of(context).theme.addTabText,
                         ),
                         hintText: 'KRW 0',
                         contentPadding: EdgeInsets.only(right: 14),
                 ),
                 style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 14.0,
                         color: CustomTheme.of(context).theme.addTabText,
                 ),
                 keyboardType: TextInputType.number,
@@ -238,12 +257,67 @@ class _AddTabState extends State<AddTab> {
                                                             setState(() {});
                                                         }
                                                 ),
-                                            ],
+                                            ]),
+                                    ElevatedButton(
+                                            child: Text('Add Detail'),
+                                            onPressed: () {
+                                                openDialog();
+                                            },
                                     ),
                                     ]),
                 ),
         );
     }
+
+    Future openDialog() => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                    title: Text('Detail'),
+                    content: Container(
+                            height: 150,
+                            child:Column(
+                            children: [
+                                _DatePickerItem(
+                                        children: [
+                                            Text(
+                                                    'Name',
+                                                    style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: CustomTheme.of(context).theme.addTabTitle,
+                                                    ),
+                                            ),
+                                            Container(
+                                                    width: 150,
+                                                    child: detailField(),
+                                            ),
+                                        ],
+                                ),
+                                _DatePickerItem(
+                                        children: [
+                                            Text(
+                                                    'Money',
+                                                    style: TextStyle(
+                                                            fontSize: 15.0,
+                                                            color: CustomTheme.of(context).theme.addTabTitle,
+                                                    ),
+                                            ),
+                                            Container(
+                                                    width: 150,
+                                                    child: moneyField(),
+                                            ),
+                                        ],
+                                ),
+                            ],
+                            ),
+                    ),
+                    actions: [
+                        TextButton(
+                                child: Text('Add'),
+                                onPressed: () {},
+                        ),
+                    ],
+            ),
+    );
 
     @override
     Widget build(BuildContext context) {
