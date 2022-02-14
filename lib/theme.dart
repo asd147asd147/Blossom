@@ -26,6 +26,7 @@ abstract class DefaultTheme {
     Color get addTabToggleText;
     Color get addTabToggleBack;
     Color get addTabToggleBorder;
+    Color get addTabElvatedButton;
 
     ThemeData get themeData;
 
@@ -65,6 +66,7 @@ class PinkTheme extends DefaultTheme {
     final Color addTabToggleText = brightColor;
     final Color addTabToggleBack = highLightColor;
     final Color addTabToggleBorder = highLightColor;
+    final Color addTabElvatedButton = mainColor;
 
     final ThemeData themeData = ThemeData(
             scaffoldBackgroundColor: mainColor,
