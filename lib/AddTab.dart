@@ -17,6 +17,22 @@ class _AddTabState extends State<AddTab> {
     var isSelected = [true, false];
     var money = 0;
     IconData? iconData;
+    late TextEditingController detailController, costController;
+    List<Map<String,String>> detailList = [];
+
+    @override
+    void initState() {
+        super.initState();
+        detailController = TextEditingController();
+        costController = TextEditingController();
+    }
+
+    @override
+    void dispose() {
+        costController.dispose();
+        detailController.dispose();
+        super.dispose();
+    }
 
     void _showDatePicker(BuildContext context) {
         showCupertinoModalPopup(
@@ -118,6 +134,7 @@ class _AddTabState extends State<AddTab> {
                         hintText: 'Only English',
                         contentPadding: EdgeInsets.only(right: 14),
                 ),
+                controller: detailController,
                 style: TextStyle(
                         fontSize: 14.0,
                         color: CustomTheme.of(context).theme.addTabText,
@@ -137,6 +154,7 @@ class _AddTabState extends State<AddTab> {
                         hintText: 'KRW 0',
                         contentPadding: EdgeInsets.only(right: 14),
                 ),
+                controller: costController,
                 style: TextStyle(
                         fontSize: 14.0,
                         color: CustomTheme.of(context).theme.addTabText,
@@ -166,7 +184,7 @@ class _AddTabState extends State<AddTab> {
                 child: Container(
                         margin: EdgeInsets.only(top: 10, bottom: 0),
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        constraints: BoxConstraints.expand(height: size.height * 0.45),
+                        constraints: BoxConstraints.expand(height: 320),
                         child: Column(
                                 children: [
                                     _DatePickerItem(
@@ -260,8 +278,17 @@ class _AddTabState extends State<AddTab> {
                                             ]),
                                     ElevatedButton(
                                             child: Text('Add Detail'),
-                                            onPressed: () {
-                                                openDialog();
+                                            style: ElevatedButton.styleFrom(
+                                                    primary: CustomTheme.of(context).theme.addTabElvatedButton,
+                                            ),
+                                            onPressed: () async {
+                                                final detailInfo = await openDialog();
+                                                if(detailInfo == null || detailInfo.isEmpty) return;
+                                                detailList.add(detailInfo);
+                                                detailController.text = '';
+                                                costController.text = '';
+                                                print(detailList);
+                                                setState(() {});
                                             },
                                     ),
                                     ]),
@@ -269,12 +296,12 @@ class _AddTabState extends State<AddTab> {
         );
     }
 
-    Future openDialog() => showDialog(
+    Future<Map<String,String>?> openDialog() => showDialog<Map<String,String>>(
             context: context,
             builder: (context) => AlertDialog(
                     title: Text('Detail'),
                     content: Container(
-                            height: 150,
+                            height: 100,
                             child:Column(
                             children: [
                                 _DatePickerItem(
@@ -313,11 +340,15 @@ class _AddTabState extends State<AddTab> {
                     actions: [
                         TextButton(
                                 child: Text('Add'),
-                                onPressed: () {},
+                                onPressed: submit,
                         ),
                     ],
             ),
     );
+
+    void submit() {
+        Navigator.of(context).pop({'detail': detailController.text, 'cost': costController.text});
+    }
 
     @override
     Widget build(BuildContext context) {
