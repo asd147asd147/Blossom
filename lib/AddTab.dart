@@ -176,6 +176,28 @@ class _AddTabState extends State<AddTab> {
         return IconData(iconData?.codePoint ?? Icons.check.codePoint, fontFamily: 'MaterialIcons');
     }
 
+    Widget receipt(){
+        return Card(
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                elevation: 5,
+                child: Container(
+                        margin: EdgeInsets.only(top: 10, bottom: 0),
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        constraints: BoxConstraints.expand(height: 320),
+                        child: Column(
+                                children: [
+                                    Text(
+                                            'Receipt',
+                                            style: TextStyle(
+                                                    fontSize: 20.0,
+                                            ),
+                                    ),
+                                ],
+                                ),
+                        ),
+                );
+    }
+
     Widget baseCard() {
         final Size size = MediaQuery.of(context).size;
         return Card(
@@ -357,7 +379,16 @@ class _AddTabState extends State<AddTab> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                 ),
-                body: baseCard(),
+                body: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                                children: [
+                                    baseCard(),
+                                    Divider(),
+                                    receipt(),
+                                ],
+                        ),
+                ),
         );
     }
 }
