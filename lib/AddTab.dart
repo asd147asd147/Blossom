@@ -25,6 +25,7 @@ class _AddTabState extends State<AddTab> {
         super.initState();
         detailController = TextEditingController();
         costController = TextEditingController();
+        costController.text = 'KRW 0';
     }
 
     @override
@@ -41,6 +42,7 @@ class _AddTabState extends State<AddTab> {
                         height: 216,
                         child: CupertinoDatePicker(
                                 mode: CupertinoDatePickerMode.date,
+                                maximumDate: DateTime.now(),
                                 onDateTimeChanged: (value) {
                                     setState((){
                                         _selectDay = value;
@@ -183,16 +185,76 @@ class _AddTabState extends State<AddTab> {
                 child: Container(
                         margin: EdgeInsets.only(top: 10, bottom: 0),
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        constraints: BoxConstraints.expand(height: 320),
                         child: Column(
                                 children: [
                                     Text(
                                             'Receipt',
                                             style: TextStyle(
+                                                    color: CustomTheme.of(context).theme.homeTimelineMainText,
                                                     fontSize: 20.0,
                                             ),
                                     ),
-                                ],
+                                    ListView.builder(
+                                            padding: EdgeInsets.all(3.0),
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: detailList.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                                return ListTile(
+                                                        contentPadding: EdgeInsets.only(left: 20.0, right: 15.0),
+                                                        title: Text(
+                                                                detailList[index]['detail']!,
+                                                                style: TextStyle(
+                                                                        color: CustomTheme.of(context).theme.homeTimelineSubText,
+                                                                        fontSize: 17.0,
+                                                                ),
+                                                        ),
+                                                        trailing: Text(
+                                                                detailList[index]['cost']!,
+                                                                style: TextStyle(
+                                                                        color: CustomTheme.of(context).theme.homeTimelineSubText,
+                                                                        fontSize: 17.0,
+                                                                ),
+                                                                textAlign: TextAlign.right,
+                                                        ),
+                                                );
+                                            },
+                                            ),
+                                    Container(
+                                            margin: EdgeInsets.symmetric(horizontal: 10),
+                                            height: 1.2,
+                                            decoration: BoxDecoration(
+                                                    color: CustomTheme.of(context).theme.homeTimelineIndicator,
+                                            ),
+                                    ),
+                                    ListTile(
+                                            contentPadding: EdgeInsets.only(left: 20.0, right: 15.0),
+                                            title: Text(
+                                                    'Total',
+                                                    style: TextStyle(
+                                                            color: CustomTheme.of(context).theme.homeTimelineSubText,
+                                                            fontSize: 17.0,
+                                                    ),
+                                            ),
+                                            trailing: Text(
+                                                    'KRW 0',
+                                                    style: TextStyle(
+                                                            color: CustomTheme.of(context).theme.homeTimelineSubText,
+                                                            fontSize: 17.0,
+                                                    ),
+                                                    textAlign: TextAlign.right,
+                                            ),
+                                    ),
+                                    ElevatedButton(
+                                            child: Text('Accept'),
+                                            style: ElevatedButton.styleFrom(
+                                                    primary: CustomTheme.of(context).theme.addTabElvatedButton,
+                                            ),
+                                            onPressed: () {
+                                                Navigator.pop(context);
+                                            },
+                                    ),
+                                    ],
                                 ),
                         ),
                 );
@@ -308,8 +370,7 @@ class _AddTabState extends State<AddTab> {
                                                 if(detailInfo == null || detailInfo.isEmpty) return;
                                                 detailList.add(detailInfo);
                                                 detailController.text = '';
-                                                costController.text = '';
-                                                print(detailList);
+                                                costController.text = 'KRW 0';
                                                 setState(() {});
                                             },
                                     ),
