@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:timelines/timelines.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import './Summary.dart';
 import './theme.dart';
+import './dataBase.dart';
+import './dataBase.dart';
 
 class HomeTimeLine extends StatefulWidget {
     @override
@@ -9,21 +13,26 @@ class HomeTimeLine extends StatefulWidget {
 }
 
 class _HomeTimeLineState extends State<HomeTimeLine> {
+    late Database dataBase;
     Widget timelineBuilder(){
-        List<String> _time = ['09:00', '13:00', '17:50', '19:50', '21:50'];
-        List<Map<String, dynamic>> _subject = [
-            {'subject': 'Brunch', 'time': '09:00', 'detail': ['Grilled ham, egg & chips', 'Espresso']},
-            {'subject': 'Lunch', 'time': '13:00', 'detail': ['Cheeseburger']},
-            {'subject': 'Shopping', 'time': '17:50', 'detail': ['Muffler', 'Gloves']},
-            {'subject': 'Dinner', 'time': '19:50','detail': ['Beefsteak', 'Houes White Wine']},
-            {'subject': 'Stock', 'time': '21:50', 'detail': ['Profit']},
-        ];
-
+        var today = DateFormat.yMMMd().format(DateTime.now()).toString();
+        List<Map<String, dynamic>> _subject = [];
+        if(dataBase.data[today] != null) {
+            dataBase.data[today]!.itemList.forEach((value) {
+                _subject.add({
+                    'subject': value.subject,
+                    'time': value.time,
+                    'icon': value.iconData,
+                    'cost': value.total,
+                    'detail': value.detail
+                });
+            });
+        }
         List<Map<dynamic, dynamic>> _timeLineInfo = [];
         _subject.forEach((value){
-            _timeLineInfo.add({'content': value['subject'], 'oppContent': value['time'], 'type': 0});
+            _timeLineInfo.add({'content': value['subject'], 'oppContent': value['time'], 'cost': value['cost'], 'icon': value['icon'], 'type': 0});
             for(int i = 0; i < value['detail'].length; i++){
-                _timeLineInfo.add({'content': value['detail'][i], 'oppContent': '', 'type': 1});
+                _timeLineInfo.add({'content': value['detail'][i]['detail'], 'cost': value['detail'][i]['cost'], 'oppContent': '', 'type': 1});
             }
         });
 
@@ -66,7 +75,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                     ),
                                             ),
                                             trailing: Text(
-                                                    '20,000',
+                                                    _timeLineInfo[index]['cost'],
                                                     style: TextStyle(
                                                             color: _color,
                                                             fontSize: _fontSize,
@@ -101,7 +110,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     return DotIndicator(
                                             size: _size,
                                             child: Icon(
-                                                    Icons.check,
+                                                    _timeLineInfo[index]['icon'],
                                                     color: Colors.white,
                                                     size: _childSize,
                                             ),
@@ -127,6 +136,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
     @override
     Widget build(BuildContext context) {
         final Size size = MediaQuery.of(context).size;
+        dataBase = context.watch<Database>();
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
                 elevation: 5,
@@ -229,8 +239,6 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                             reverse: true,
                                             scrollDirection: Axis.horizontal,
                                             children: <Widget>[
-                                                timelineBuilder(),
-                                                timelineBuilder(),
                                                 timelineBuilder(),
                                             ],
                                     ),
