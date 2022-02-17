@@ -269,7 +269,7 @@ class _AddTabState extends State<AddTab> {
                                                         Item(
                                                                 subject,
                                                                 DateFormat.Hm().format(_selectTime).toString(),
-                                                                IconData(iconData!.codePoint, fontFamily: 'MaterialIcons'),
+                                                                iconData!.codePoint,
                                                                 f.format(money.round()).toString(),
                                                                 detailList,
                                                         ),

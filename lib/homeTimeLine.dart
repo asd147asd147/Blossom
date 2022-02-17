@@ -14,8 +14,18 @@ class HomeTimeLine extends StatefulWidget {
 
 class _HomeTimeLineState extends State<HomeTimeLine> {
     late Database dataBase;
-    Widget timelineBuilder(){
-        var today = DateFormat.yMMMd().format(DateTime.now()).toString();
+    int pageCount = 7;
+    final PageController _pageController = PageController(initialPage: 0);
+    int getPageIndex = 0;
+    
+    @override
+    void dispose() {
+        _pageController.dispose();
+        super.dispose();
+    }
+
+    Widget timelineBuilder(DateTime time){
+        var today = DateFormat.yMMMd().format(time).toString();
         List<Map<String, dynamic>> _subject = [];
         if(dataBase.data[today] != null) {
             dataBase.data[today]!.itemList.forEach((value) {
@@ -32,7 +42,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
         _subject.forEach((value){
             _timeLineInfo.add({'content': value['subject'], 'oppContent': value['time'], 'cost': value['cost'], 'icon': value['icon'], 'type': 0});
             for(int i = 0; i < value['detail'].length; i++){
-                _timeLineInfo.add({'content': value['detail'][i]['detail'], 'cost': value['detail'][i]['cost'], 'oppContent': '', 'type': 1});
+                _timeLineInfo.add({'content': value['detail'][i]['detail'], 'cost': value['detail'][i]['cost'], 'icon': value['icon'], 'oppContent': '', 'type': 1});
             }
         });
 
@@ -110,7 +120,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                     return DotIndicator(
                                             size: _size,
                                             child: Icon(
-                                                    _timeLineInfo[index]['icon'],
+                                                    IconData(_timeLineInfo[index]['icon'], fontFamily: 'MaterialIcons'),
                                                     color: Colors.white,
                                                     size: _childSize,
                                             ),
@@ -133,10 +143,17 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
         );
     }
 
+    whenPageChanges(int pageIndex) {
+        setState(() {
+            this.getPageIndex = pageIndex;
+        });
+    }
+
     @override
     Widget build(BuildContext context) {
         final Size size = MediaQuery.of(context).size;
         dataBase = context.watch<Database>();
+        var pageDate = DateFormat.yMMMd().format(DateTime.now().subtract(Duration(days: getPageIndex))).toString();
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
                 elevation: 5,
@@ -158,7 +175,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                         ),
                                                 ),
                                                 Text(
-                                                        '2022-01-13',
+                                                        pageDate,
                                                         style: TextStyle(
                                                                 color: CustomTheme.of(context).theme.homeTimelineTitle,
                                                                 fontSize: 17,
@@ -235,12 +252,17 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                             ),
                             Container(
                                     height: size.height * 0.45,
-                                    child: PageView(
+                                    child: PageView.builder(
+                                            controller: _pageController,
+                                            onPageChanged: whenPageChanges,
                                             reverse: true,
                                             scrollDirection: Axis.horizontal,
-                                            children: <Widget>[
-                                                timelineBuilder(),
-                                            ],
+                                            itemBuilder: (BuildContext context, int index) {
+                                                if(index >= pageCount) {
+                                                    pageCount+=7;
+                                                }
+                                                return timelineBuilder(DateTime.now().subtract(Duration(days:index)));
+                                            }
                                     ),
                             ),
                         ],
