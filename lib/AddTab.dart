@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+import 'package:provider/provider.dart';
 import './theme.dart';
+import './dataBase.dart';
 
 class AddTab extends StatefulWidget {
     @override
@@ -16,20 +18,25 @@ class _AddTabState extends State<AddTab> {
     DateTime _selectTime = DateTime.now();
     var isSelected = [true, false];
     var money = 0;
-    IconData? iconData;
-    late TextEditingController detailController, costController;
+    IconData? iconData = IconData(Icons.check.codePoint, fontFamily: 'MaterialIcon');
+    late TextEditingController detailController, costController, subjectController;
     List<Map<String,String>> detailList = [];
+    late Database dataBase;
+    String subject = '';
 
+    var f = NumberFormat('###,###,###,###');
     @override
     void initState() {
         super.initState();
         detailController = TextEditingController();
         costController = TextEditingController();
+        subjectController = TextEditingController();
         costController.text = 'KRW 0';
     }
 
     @override
     void dispose() {
+        subjectController.dispose();
         costController.dispose();
         detailController.dispose();
         super.dispose();
@@ -117,6 +124,12 @@ class _AddTabState extends State<AddTab> {
                         hintText: 'Only English',
                         contentPadding: EdgeInsets.only(right: 14),
                 ),
+                controller: subjectController,
+                onChanged: (text) {
+                    setState(() {
+                        subject = text;
+                    });
+                },
                 style: TextStyle(
                         fontSize: 18.0,
                         color: CustomTheme.of(context).theme.addTabText,
@@ -237,7 +250,7 @@ class _AddTabState extends State<AddTab> {
                                                     ),
                                             ),
                                             trailing: Text(
-                                                    'KRW 0',
+                                                    f.format(money.round()).toString(),
                                                     style: TextStyle(
                                                             color: CustomTheme.of(context).theme.homeTimelineSubText,
                                                             fontSize: 17.0,
@@ -251,6 +264,16 @@ class _AddTabState extends State<AddTab> {
                                                     primary: CustomTheme.of(context).theme.addTabElvatedButton,
                                             ),
                                             onPressed: () {
+                                                dataBase.add(
+                                                        DateFormat.yMMMd().format(_selectDay).toString(),
+                                                        Item(
+                                                                subject,
+                                                                DateFormat.Hm().format(_selectTime).toString(),
+                                                                IconData(iconData!.codePoint, fontFamily: 'MaterialIcons'),
+                                                                f.format(money.round()).toString(),
+                                                                detailList,
+                                                        ),
+                                                );
                                                 Navigator.pop(context);
                                             },
                                     ),
@@ -366,6 +389,8 @@ class _AddTabState extends State<AddTab> {
                                                     primary: CustomTheme.of(context).theme.addTabElvatedButton,
                                             ),
                                             onPressed: () async {
+                                                detailController.text = '';
+                                                costController.text = '';
                                                 final detailInfo = await openDialog();
                                                 if(detailInfo == null || detailInfo.isEmpty) return;
                                                 detailList.add(detailInfo);
@@ -430,11 +455,14 @@ class _AddTabState extends State<AddTab> {
     );
 
     void submit() {
-        Navigator.of(context).pop({'detail': detailController.text, 'cost': costController.text});
+        var cost = costController.text.substring(4);
+        money += int.parse(cost.replaceAll(',',''));
+        Navigator.of(context).pop({'detail': detailController.text, 'cost': cost.toString()});
     }
 
     @override
     Widget build(BuildContext context) {
+        dataBase = context.watch<Database>();
         return Scaffold(
                 appBar: AppBar(
                         backgroundColor: Colors.transparent,
