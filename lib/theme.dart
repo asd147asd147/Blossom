@@ -71,6 +71,7 @@ class PinkTheme extends DefaultTheme {
     final ThemeData themeData = ThemeData(
             scaffoldBackgroundColor: mainColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'mood',
     );
 }
 
