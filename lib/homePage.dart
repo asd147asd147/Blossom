@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transition/transition.dart';
 import './homeInfo.dart';
 import './homeTimeLine.dart';
 import './theme.dart';
@@ -26,7 +27,12 @@ class HomeScreen extends StatelessWidget {
                                             icon: Icon(Icons.settings),
                                             color: CustomTheme.of(context).theme.appBarIconColor,
                                             onPressed: () {
-                                                Navigator.push(context, MaterialPageRoute(builder: (_) => Summary()));
+                                                Navigator.push(
+                                                        context,
+                                                        Transition(
+                                                                child: Summary(),
+                                                                transitionEffect: TransitionEffect.LEFT_TO_RIGHT),
+                                                );
                                             },
                                     ),
                             ),
