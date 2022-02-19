@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'dart:math';
 import './theme.dart';
+import './dataBase.dart';
 
 class HomeInfo extends StatefulWidget {
     @override
@@ -11,6 +13,7 @@ class HomeInfo extends StatefulWidget {
 
 class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin{
     late TabController _tabController;
+    late Database dataBase;
 
     @override
     void initState() {
@@ -28,11 +31,27 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
     }
 
     List<Widget> expenseBar() {
-        List<String> week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        List<double> expense = [10000,20000,30000,40000,50000,60000,70000];
-        
+        List<double> expense = [];
+        int maxValue = 1;
+        var f = NumberFormat('###,###,###,###');
+        for(var i = 0; i < 7; i++) {
+            var time = DateTime.now().subtract(Duration(days:i));
+            var today = DateFormat.yMMMd().format(time).toString();
+            int cost = 0;
+            if(dataBase.data[today] != null) {
+                dataBase.data[today]!.itemList.forEach((value) {
+                    if(value.type == 'Expense') {
+                        var temp = int.parse(value.total.replaceAll(',',''));
+                        maxValue = max(maxValue, temp);
+                        cost += temp;
+                    }
+                });
+            }
+            expense.add(cost.toDouble());
+        }
+
         return List<Widget>.generate(7, (index){
-            var f = NumberFormat('###,###,###,###');
+            var curDate = DateTime.now().subtract(Duration(days:index));
             return Flexible(
                     fit: FlexFit.tight,
                     child: Column(
@@ -40,7 +59,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                 Padding(
                                         padding: EdgeInsets.only(bottom: 10),
                                         child: Text(
-                                                f.format(expense[index].round()).toString(),
+                                                f.format(expense[6-index].round()).toString(),
                                                 style: TextStyle(
                                                         color: CustomTheme.of(context).theme.homeInfoBarAbove,
                                                         fontSize: 10
@@ -53,7 +72,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                                 direction: Axis.vertical,
                                                 verticalDirection: VerticalDirection.up,
                                                 size: 5,
-                                                currentValue: (expense[index]/expense.reduce(max)*100).round(),
+                                                currentValue: (expense[6-index]/maxValue*100).round(),
                                                 backgroundColor: CustomTheme.of(context).theme.homeInfoBarBackground,
                                                 progressColor: CustomTheme.of(context).theme.homeInfoBarProgress, 
                                         ),
@@ -61,7 +80,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                 Padding(
                                         padding: EdgeInsets.only(top: 10),
                                         child: Text(
-                                                week[index],
+                                                DateFormat.E().format(curDate).toString(),
                                                 style: TextStyle(color: CustomTheme.of(context).theme.homeInfoBarUnder),
                                         ),
                                 ),
@@ -73,6 +92,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
 
     @override
     Widget build(BuildContext context) {
+        dataBase = context.watch<Database>();
         return Card(
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 elevation: 5,
