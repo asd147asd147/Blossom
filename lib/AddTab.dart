@@ -264,6 +264,8 @@ class _AddTabState extends State<AddTab> {
                                                     primary: CustomTheme.of(context).theme.addTabElvatedButton,
                                             ),
                                             onPressed: () {
+                                                String type = 'Income';
+                                                if(isSelected[1] == true) type = 'Expense';
                                                 dataBase.add(
                                                         DateFormat.yMMMd().format(_selectDay).toString(),
                                                         Item(
@@ -271,6 +273,7 @@ class _AddTabState extends State<AddTab> {
                                                                 DateFormat.Hm().format(_selectTime).toString(),
                                                                 iconData!.codePoint,
                                                                 f.format(money.round()).toString(),
+                                                                type,
                                                                 detailList,
                                                         ),
                                                 );

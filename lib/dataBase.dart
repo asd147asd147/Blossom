@@ -108,12 +108,14 @@ class Item {
         this.time,
         this.iconData,
         this.total,
+        this.type,
         this.detail,
     );
 
     String subject;
     String time;
     String total;
+    String type;
     int iconData;
     List<Map<String,String>> detail;
 
@@ -122,6 +124,7 @@ class Item {
         time = json['time'],
         iconData = json['iconData'],
         total = json['total'],
+        type = json['type'],
         detail = []
     {
         json['detail'].forEach((v) {
@@ -135,6 +138,7 @@ class Item {
         d['time'] = this.time;
         d['iconData'] = this.iconData;
         d['total'] = this.total;
+        d['type'] = this.type;
         d['detail'] = this.detail.map((value) {
             final Map<String, String> dd = new Map<String, String>();
             for(var v in value.entries) {
