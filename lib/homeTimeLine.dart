@@ -17,6 +17,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
     int pageCount = 7;
     final PageController _pageController = PageController(initialPage: 0);
     int getPageIndex = 0;
+    int income = 0, expense = 0;
     
     @override
     void dispose() {
@@ -144,6 +145,19 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
     }
 
     whenPageChanges(int pageIndex) {
+        var time = DateTime.now().subtract(Duration(days: pageIndex));
+        var today = DateFormat.yMMMd().format(time).toString();
+        income = 0; expense = 0;
+        if(dataBase.data[today] != null) {
+            dataBase.data[today]!.itemList.forEach((value) {
+                if(value.type == 'Income') {
+                    income += int.parse(value.total.replaceAll(',',''));
+                }
+                else {
+                    expense += int.parse(value.total.replaceAll(',',''));
+                }
+            });
+        }
         setState(() {
             this.getPageIndex = pageIndex;
         });
@@ -154,6 +168,8 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
         final Size size = MediaQuery.of(context).size;
         dataBase = context.watch<Database>();
         var pageDate = DateFormat.yMMMd().format(DateTime.now().subtract(Duration(days: getPageIndex))).toString();
+        var f = NumberFormat('###,###,###,###');
+        whenPageChanges(this.getPageIndex);
         return Card(
                 margin: EdgeInsets.only(left: 15, right: 15, top: 15),
                 elevation: 5,
@@ -209,7 +225,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                                     ),
                                                             ),
                                                             Text(
-                                                                    '150,000',
+                                                                    f.format(income.round()).toString(),
                                                                     style: TextStyle(
                                                                             color: CustomTheme.of(context).theme.homeTimelineInfoText,
                                                                             fontSize: 13,
@@ -232,7 +248,7 @@ class _HomeTimeLineState extends State<HomeTimeLine> {
                                                                     ),
                                                             ),
                                                             Text(
-                                                                    '80,000',
+                                                                    f.format(expense.round()).toString(),
                                                                     style: TextStyle(
                                                                             color: CustomTheme.of(context).theme.homeTimelineInfoText,
                                                                             fontSize: 13,
