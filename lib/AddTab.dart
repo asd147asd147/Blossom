@@ -193,7 +193,7 @@ class _AddTabState extends State<AddTab> {
 
     Widget receipt(){
         return Card(
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 100),
                 elevation: 5,
                 child: Container(
                         margin: EdgeInsets.only(top: 10, bottom: 0),
@@ -294,7 +294,7 @@ class _AddTabState extends State<AddTab> {
                 child: Container(
                         margin: EdgeInsets.only(top: 10, bottom: 0),
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        constraints: BoxConstraints.expand(height: 320),
+                        constraints: BoxConstraints.expand(height: 335),
                         child: Column(
                                 children: [
                                     _DatePickerItem(
@@ -311,6 +311,7 @@ class _AddTabState extends State<AddTab> {
                                                                 DateFormat.yMMMd().format(_selectDay),
                                                                 style: TextStyle(
                                                                         fontSize: 18.0,
+                                                                        fontFamily: 'Mood',
                                                                         color: CustomTheme.of(context).theme.addTabText,
                                                                 ),
                                                         ),
@@ -331,6 +332,7 @@ class _AddTabState extends State<AddTab> {
                                                                 DateFormat.jm().format(_selectTime),
                                                                 style: TextStyle(
                                                                         fontSize: 18.0,
+                                                                        fontFamily: 'Mood',
                                                                         color: CustomTheme.of(context).theme.addTabText,
                                                                 ),
                                                         ),
@@ -410,7 +412,13 @@ class _AddTabState extends State<AddTab> {
     Future<Map<String,String>?> openDialog() => showDialog<Map<String,String>>(
             context: context,
             builder: (context) => AlertDialog(
-                    title: Text('Detail'),
+                    title: Text(
+                            'Detail',
+                            style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: CustomTheme.of(context).theme.addTabTitle,
+                            ),
+                    ),
                     content: Container(
                             height: 100,
                             child:Column(
@@ -450,7 +458,13 @@ class _AddTabState extends State<AddTab> {
                     ),
                     actions: [
                         TextButton(
-                                child: Text('Add'),
+                                child: Text(
+                                        'Add',
+                                        style: TextStyle(
+                                                fontSize: 15.0,
+                                                color: CustomTheme.of(context).theme.addTabTitle,
+                                        ),
+                                ),
                                 onPressed: submit,
                         ),
                     ],
