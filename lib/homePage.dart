@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:transition/transition.dart';
+import 'package:provider/provider.dart';
 import './homeInfo.dart';
 import './homeTimeLine.dart';
 import './theme.dart';
@@ -6,8 +8,10 @@ import './Summary.dart';
 import './AddTab.dart';
 
 class HomePage extends StatelessWidget {
+    late CustomTheme customTheme;
     @override
     Widget build(BuildContext context) {
+        customTheme = context.watch<CustomTheme>();
         return MaterialApp(
                 theme: CustomTheme.of(context).theme.themeData,
                 home: HomeScreen(),
@@ -26,15 +30,23 @@ class HomeScreen extends StatelessWidget {
                                             icon: Icon(Icons.settings),
                                             color: CustomTheme.of(context).theme.appBarIconColor,
                                             onPressed: () {
-                                                Navigator.push(context, MaterialPageRoute(builder: (_) => Summary()));
+                                                Navigator.push(
+                                                        context,
+                                                        Transition(
+                                                                child: Summary(),
+                                                                transitionEffect: TransitionEffect.LEFT_TO_RIGHT),
+                                                );
                                             },
                                     ),
                             ),
-                        /*Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 30),
-                                child: Icon(Icons.menu),
-                        ),*/
-                        title: Text('JuneBank'),
+                        title: Text(
+                                'Blossom',
+                                style: TextStyle(
+                                        color: CustomTheme.of(context).theme.appBarIconColor,
+                                        fontSize: 22.0,
+                                        fontWeight: FontWeight.bold,
+                                ),
+                        ),
                         actions: [
                             Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 15),
