@@ -87,7 +87,7 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                         child: FAProgressBar(
                                                 direction: Axis.vertical,
                                                 verticalDirection: VerticalDirection.up,
-                                                size: 5,
+                                             size: 5,
                                                 currentValue: (expense[5-index]/maxValue*100).round(),
                                                 backgroundColor: CustomTheme.of(context).theme.homeInfoBarBackground,
                                                 progressColor: CustomTheme.of(context).theme.homeInfoBarProgress, 
@@ -303,8 +303,8 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                         child: Column(
                                 children: [
                                     Container(
-                                        margin: EdgeInsets.only(top: 10, bottom: 0),
-                                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                            margin: EdgeInsets.only(top: 10, bottom: 0),
+                                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                             constraints: BoxConstraints.expand(height: 50),
                                             child: TabBar(
                                                     labelColor: CustomTheme.of(context).theme.homeInfoLabel,
@@ -351,10 +351,10 @@ class _HomeInfoState extends State<HomeInfo> with SingleTickerProviderStateMixin
                                                                         children: expenseBarYearly(),
                                                                 ),
                                                         ),
-                                                    ],),
-                                    ),
-                                ],),
-                ),
-                );
+                                                        ],),
+                                                        ),
+                                                        ],),
+                                                        ),
+                                                        );
     }
 }

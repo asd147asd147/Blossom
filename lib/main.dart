@@ -10,6 +10,7 @@ void main() {
             MultiProvider(
                     providers: [
                         ChangeNotifierProvider(create: (_) => Database()),
+                        ChangeNotifierProvider(create: (_) => CustomTheme(theme: PinkTheme(), child: HomePage())),
                     ],
                     child: MyApp(),
             ),
@@ -17,12 +18,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+    late CustomTheme customTheme;
     @override
     Widget build(BuildContext context) {
-        return CustomTheme(
-                theme: PinkTheme(),
-                child: HomePage(),
-        );
+        customTheme = context.watch<CustomTheme>();
+        return customTheme;
     }
 }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 abstract class DefaultTheme {
     Color get scaffoldBackgroundColor;
@@ -75,7 +77,7 @@ class PinkTheme extends DefaultTheme {
     );
 }
 
-class PurpleTheme {
+class PurpleTheme extends DefaultTheme {
     static Color mainColor = Color(0xffdeb7ff);
     static Color highLightColor = Color(0xff83578b);
     static Color baseColor = Color(0xffaeabf1);
@@ -103,25 +105,41 @@ class PurpleTheme {
     final Color homeTimelineMainText = defaultColor;
     final Color homeTimelineSubText = textColor;
 
+    final Color addTabTitle = highLightColor;
+    final Color addTabText = textColor;
+    final Color addTabDivider = baseColor;
+    final Color addTabToggleText = brightColor;
+    final Color addTabToggleBack = highLightColor;
+    final Color addTabToggleBorder = highLightColor;
+    final Color addTabElvatedButton = mainColor;
+
     final ThemeData themeData = ThemeData(
             scaffoldBackgroundColor: mainColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'mood',
     );
 }
 
 
 
-class CustomTheme extends InheritedWidget {
-    const CustomTheme({
+class CustomTheme extends InheritedWidget with ChangeNotifier {
+    CustomTheme({
         Key? key,
         required this.theme,
         required Widget child,
     }) : super(key: key, child: child);
 
-    final DefaultTheme theme;
+    DefaultTheme theme;
 
     @override
-    bool updateShouldNotify(CustomTheme old) => theme != old.theme;
+    bool updateShouldNotify(CustomTheme old) {
+        return true;
+    }
+
+    void changeTheme(DefaultTheme newTheme) {
+        theme = newTheme;
+        notifyListeners();
+    } 
 
     static CustomTheme of(BuildContext context) {
         return context.dependOnInheritedWidgetOfExactType<CustomTheme>()!;
