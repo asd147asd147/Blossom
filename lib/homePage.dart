@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
     Widget build(BuildContext context) {
         customTheme = context.watch<CustomTheme>();
         return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 theme: CustomTheme.of(context).theme.themeData,
                 home: HomeScreen(),
         );
