@@ -1,5 +1,5 @@
 # <img src="https://user-images.githubusercontent.com/55697983/155546473-4f1ba7b1-915c-45ff-9261-de9b07f6e816.jpg" width="64px" height="64px" title="Blossom App Icon" alt="Blossom App Icon"></img> TodoRate 
-> **가계부에 감성을 더하다**!
+> **가계부에 감성을 더하다**
 
 
 ## 2nd Mozza-Rella project with flutter.
