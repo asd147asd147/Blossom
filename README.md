@@ -65,7 +65,8 @@
 <img src="https://user-images.githubusercontent.com/55697983/155549307-f1aaa44e-b8f6-491a-8653-e6f303d6d6a0.png" width="250px" height="520px" title="Theme Select" alt="Theme Select"></img>
 </p>
 
-- Pink, Purple, Yellow, Blue </br>
+- Purple, Yellow
+- Blue, Pink
 
 ## License
 TodoRate is released under the [MIT License](http://www.opensource.org/licenses/mit-license).
