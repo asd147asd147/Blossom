@@ -58,7 +58,8 @@
 <img src="https://user-images.githubusercontent.com/55697983/155549290-f3660aec-f9d0-4ff2-86fa-086f9f81a637.png" width="250px" height="520px" title="Theme Select" alt="Theme Select"></img>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://user-images.githubusercontent.com/55697983/155549300-9f47679c-6cd9-4bb9-9599-dc6254aae730.png" width="250px" height="520px" title="Theme Select" alt="Theme Select"></img>
-&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p align="center">
 <img src="https://user-images.githubusercontent.com/55697983/155549303-9952f173-9690-4606-82b1-3b98dd74b1b8.png" width="250px" height="520px" title="Theme Select" alt="Theme Select"></img>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://user-images.githubusercontent.com/55697983/155549307-f1aaa44e-b8f6-491a-8653-e6f303d6d6a0.png" width="250px" height="520px" title="Theme Select" alt="Theme Select"></img>
