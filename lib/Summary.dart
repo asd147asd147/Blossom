@@ -47,14 +47,15 @@ class _SummaryState extends State<Summary> {
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 elevation: 5,
                 child: Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 0),
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                         constraints: BoxConstraints.expand(height: 335),
                         child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                     themeBuilder(PinkTheme(), PinkTheme.mainColor, 'Pink'),
                                     themeBuilder(PurpleTheme(), PurpleTheme.mainColor, 'Purple'),
+                                    themeBuilder(YellowTheme(), YellowTheme.mainColor, 'Yellow'),
+                                    themeBuilder(BlueTheme(), BlueTheme.mainColor, 'Blue'),
                                 ],
                         ),
                 ),
